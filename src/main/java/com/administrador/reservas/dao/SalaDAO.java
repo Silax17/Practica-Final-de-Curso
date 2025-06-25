@@ -60,7 +60,9 @@ public class SalaDAO { //CRUD
 			st.setInt(2, sala.getCapacidad());
 			st.setString(3, sala.getRecursos_disponibles());
 			st.setInt(4,sala.getId());
-			st.executeUpdate()
-		}
+			st.executeUpdate();
+		}catch(SQLException e) {
+			System.out.println("Error al actualizar salas");
 	}
+}
 }

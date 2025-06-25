@@ -1,5 +1,5 @@
 package com.administrador.reservas.modelo;
 
-public class SalaDAO {
+public class Reserva {
 
 }

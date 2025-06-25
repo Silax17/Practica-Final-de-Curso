@@ -1,4 +1,4 @@
-package com.administrador.reservas.dao;
+package com.administrador.reservas.modelo;
 
 public class Empleado {
 	private int id;

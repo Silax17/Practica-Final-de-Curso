@@ -1,4 +1,4 @@
-package com.administrador.reservas.dao;
+package com.administrador.reservas.modelo;
 
 public class Sala {
 	private int id;

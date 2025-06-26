@@ -1,8 +1,12 @@
 package com.administrador.reservas.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 
@@ -23,6 +27,27 @@ public class ReservaDAO {
 			System.out.println("Error al agregar reserva");
 			e.printStackTrace();
 		}
+	}
+//READ
+	public List<Reserva>  verReserva() throws SQLException {
+		List<Reserva> reservaSQL = new ArrayList<>();
+		String sql="SELECT * FROM RESERVA";
+		try(Connection con = ConexionBD.getConnection(); Statement st=con.createStatement(); ResultSet rs= st.executeQuery(sql)){
+			while(rs.next()) {
+				Reserva reserva=new Reserva();
+				reserva.setId(rs.getInt("id"));
+				reserva.setEmpleado_id(rs.getInt("empleado_id"));
+				reserva.setSala_id(rs.getInt("sala_id"));
+				reserva.setFecha(rs.getDate("fecha").toLocalDate());
+				reserva.setHora_inicio(rs.getTime("hora_inicio").toLocalTime());
+				reserva.setHora_final(rs.getTime("hora_inicio").toLocalTime());
+			}
+		}catch (SQLException e) {
+			System.out.println("Error al ver reserva");
+			e.printStackTrace();
+		}
+		return reservaSQL;
+		
 	}
 
 }

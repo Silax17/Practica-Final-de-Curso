@@ -237,6 +237,8 @@ public class Main {
 			verSalas();
 			System.out.println("Eliminar Sala con ID: ");
 			int id = Intscan.nextInt();
+			Intscan.nextLine();
+
 			System.out.println("Eliminando Sala y sus reservas");
 			salaDAO.eliminarSalaRes(id);
 			System.out.println("Sala Eliminada");
@@ -328,20 +330,17 @@ public class Main {
 	}
 
 	public static void eliminarEmp() {
-		try {
-			verEmpleado();
-			System.out.println("Empleado que quieras eliminar con ID: ");
-			int id = Intscan.nextInt();
-			Intscan.nextLine();
-
-			System.out.println("Eliminando Empleado...");
-			empleadoDAO.eliminarEmpleado(id);
-			System.out.println("Empleado Eliminado");
-
-		} catch (SQLException e) {
-			System.out.println("Error: " + e.getMessage());
-			e.printStackTrace();
-		}
+	    try {
+	        verEmpleado();
+	        System.out.println("Empleado que quieras eliminar con ID: ");
+	        int id = Intscan.nextInt();
+	        System.out.println("Eliminando Empleado y sus reservas...");
+	        empleadoDAO.eliminarEmpleadoRes(id); 
+	        System.out.println("Empleado y reservas eliminadas correctamente.");
+	    } catch (SQLException e) {
+	        System.out.println("Error: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
 
 	public static void crearReserva() {

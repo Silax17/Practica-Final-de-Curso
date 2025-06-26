@@ -47,6 +47,7 @@ public class ReservaDAO {
 				reserva.setFecha(rs.getDate("fecha").toLocalDate());
 				reserva.setHora_inicio(rs.getTime("hora_inicio").toLocalTime());
 				reserva.setHora_final(rs.getTime("hora_final").toLocalTime());
+				reservaSQL.add(reserva);
 			}
 		} catch (SQLException e) {
 			System.out.println("Error al ver reserva");

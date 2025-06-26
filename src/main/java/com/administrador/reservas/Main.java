@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.administrador.reservas.dao.EmpleadoDAO;
@@ -132,15 +134,15 @@ public class Main {
 
 				;
 			case 2:
-				verEmpleado()
+				verReservas();
 
 				;
 			case 3:
-				actualizarEmp()
+				
 
 				;
 			case 4:
-				eliminarEmp()
+				
 
 				;
 
@@ -323,6 +325,16 @@ public class Main {
 		}
 
 	}
-	public List<Reserva> verReservas()
+	public static void verReservas(){
+		try {
+			
+			for(Reserva reservas: reservaDAO.verReserva()) {
+				System.out.println(reservas);
+			}
+		}catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+		
+	}
 
 }

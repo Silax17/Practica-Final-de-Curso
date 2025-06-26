@@ -63,7 +63,7 @@ public class Main {
 				;
 			case 3:actualizarSala();
 				;
-			case 4:
+			case 4: eliminarSala();
 				;
 
 			}
@@ -111,13 +111,27 @@ public class Main {
 			int capacidad = Intscan.nextInt();
 			System.out.println("Recursos que desea: ");
 			String recursos = Strscan.nextLine();
-			System.out.println("Se va actualizar la sala");
+			System.out.println("Se va actualizar la sala...");
 			Sala sala = new Sala(id, nombre, capacidad, recursos);
 			salaDAO.actualizarSala(sala);
 			System.out.println("Sala Actualizada");
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+	}
+	public static void eliminarSala() {
+		try {
+		System.out.println("Eliminar Sala con ID: ");
+		int id= Intscan.nextInt();
+		System.out.println("Eliminando Sala...");
+		salaDAO.eliminarSala(id);
+		System.out.println("Sala Eliminada");
+		
+		}catch(SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+			
+		}
+		
 	}
 
 }

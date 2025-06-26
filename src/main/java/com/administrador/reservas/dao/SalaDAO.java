@@ -17,14 +17,13 @@ public class SalaDAO { // CRUD
 	// CREATE
 	public void agregarSala(Sala sala) throws SQLException {
 		String sql = "INSERT INTO SALA (nombre, capacidad, recursos_disponibles) VALUES (?, ?, ?)";
-		try (Connection con = ConexionBD.getConnection();
-		     PreparedStatement st = con.prepareStatement(sql)) {
-		    st.setString(1, sala.getNombre());
-		    st.setInt(2, sala.getCapacidad());
-		    st.setString(3, sala.getRecursos_disponibles());
-		    st.executeUpdate();
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, sala.getNombre());
+			st.setInt(2, sala.getCapacidad());
+			st.setString(3, sala.getRecursos_disponibles());
+			st.executeUpdate();
 		} catch (SQLException e) {
-		    System.out.println("Error al insertar Sala: " + e.getMessage());
+			System.out.println("Error al insertar Sala: " + e.getMessage());
 		}
 
 	}
@@ -76,6 +75,12 @@ public class SalaDAO { // CRUD
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
 			st.setInt(1, idSala);
 			st.executeUpdate();
+			int filas = st.executeUpdate();
+			if (filas > 0) {
+				System.out.println("Sala eliminada con éxito.");
+			} else {
+				System.out.println("No se encontró una sala con ese ID.");
+			}
 
 		} catch (SQLException e) {
 			System.out.println("Error al eliminar sala");

@@ -1,7 +1,10 @@
 package com.administrador.reservas;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -43,7 +46,6 @@ public class Main {
 			case 3:
 				menuReserva();
 				;
-			
 
 			}
 
@@ -138,11 +140,10 @@ public class Main {
 
 				;
 			case 3:
-				
+				actualizarReserva();
 
 				;
 			case 4:
-				
 
 				;
 
@@ -170,6 +171,7 @@ public class Main {
 			System.out.println("Sala creada");
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -181,6 +183,7 @@ public class Main {
 			}
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -200,6 +203,8 @@ public class Main {
 			System.out.println("Sala Actualizada");
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+			
 		}
 	}
 
@@ -213,6 +218,7 @@ public class Main {
 
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 
 		}
 
@@ -243,6 +249,7 @@ public class Main {
 			System.out.println("Empleado dado de Alta");
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -254,6 +261,7 @@ public class Main {
 			}
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
@@ -280,6 +288,7 @@ public class Main {
 
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -292,49 +301,90 @@ public class Main {
 			System.out.println("Empleado Eliminado");
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	public static void crearReserva() {
 		try {
-		System.out.println("ID del Empleado: ");
-		int emp_id = Intscan.nextInt();
+			System.out.println("ID del Empleado: ");
+			int emp_id = Intscan.nextInt();
 
-		System.out.println("ID de la Sala: ");
-		int sala_id = Intscan.nextInt();
+			System.out.println("ID de la Sala: ");
+			int sala_id = Intscan.nextInt();
 
-		System.out.println("Fecha de la reserva (yyyy-MM-dd)");
-		LocalDate fecha=LocalDate.parse(Strscan.nextLine());
-		
-		System.out.println("Hora inicio (HH:mm)");
-		LocalTime horaInicio = LocalTime.parse(Strscan.nextLine());
-		
-		System.out.println("Hora final (HH:mm)");
-		LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
-		
-		 if (reservaDAO.conflictoHorario(sala_id, fecha, horaInicio, horaFinal)) {
-	            System.out.println("Error: La sala ya está reservada en ese horario.");
-	        }else {
-	        	Reserva reserva = new Reserva(0,emp_id,sala_id,fecha,horaInicio,horaFinal);
-	        	reservaDAO.agregarReserva(reserva);
-	        	System.out.println("Reserva creada");
-	        	
-	        }
-		}catch (SQLException e) {
+			System.out.println("Fecha de la reserva (yyyy-MM-dd)");
+			LocalDate fecha = LocalDate.parse(Strscan.nextLine());
+
+			System.out.println("Hora inicio (HH:mm)");
+			LocalTime horaInicio = LocalTime.parse(Strscan.nextLine());
+
+			System.out.println("Hora final (HH:mm)");
+			LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
+
+			if (reservaDAO.conflictoHorario(sala_id, fecha, horaInicio, horaFinal)) {
+				System.out.println("Error: La sala ya está reservada en ese horario.");
+			} else {
+				Reserva reserva = new Reserva(0, emp_id, sala_id, fecha, horaInicio, horaFinal);
+				reservaDAO.agregarReserva(reserva);
+				System.out.println("Reserva creada");
+
+			}
+		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 	}
-	public static void verReservas(){
+
+	public static void verReservas() {
 		try {
-			
-			for(Reserva reservas: reservaDAO.verReserva()) {
+
+			for (Reserva reservas : reservaDAO.verReserva()) {
 				System.out.println(reservas);
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
-		
+
 	}
+public static void actualizarReserva() {
+	try {
+        System.out.println("ID de la Reserva para Actualizar:");
+        int id = Intscan.nextInt();
+        Intscan.nextLine();  
+
+        System.out.println("ID del Empleado:");
+        int empleado_id = Intscan.nextInt();
+        Intscan.nextLine();
+
+        System.out.println("ID de la Sala:");
+        int sala_id = Intscan.nextInt();
+        Intscan.nextLine();
+
+        System.out.println("Fecha de la reserva (yyyy-MM-dd):");
+        LocalDate fecha = LocalDate.parse(Strscan.nextLine());
+
+        System.out.println("Hora inicio (HH:mm):");
+        LocalTime horaInicio = LocalTime.parse(Strscan.nextLine());
+
+        System.out.println("Hora final (HH:mm):");
+        LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
+
+        Reserva reserva = new Reserva(id, empleado_id, sala_id, fecha, horaInicio, horaFinal);
+
+        if (reservaDAO.conflictoHorarioExceptoId(sala_id, fecha, horaInicio, horaFinal, id)) {
+            System.out.println("Error: Conflicto de horario, no se puede actualizar la reserva.");
+            return;
+        }
+
+        reservaDAO.actualizarReserva(reserva);
+
+    } catch (SQLException e) {
+        System.out.println("Error al actualizar la reserva: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
 }

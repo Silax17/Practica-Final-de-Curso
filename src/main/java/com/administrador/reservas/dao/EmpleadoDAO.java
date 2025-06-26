@@ -22,20 +22,21 @@ public class EmpleadoDAO {
 			st.setString(1, empleado.getDepartamento());
 			st.executeUpdate();
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("No se ha podido agregar empleado");
 			e.printStackTrace();
 		}
 
 	}
-	//READ
-	public List<Empleado> verEmpleados() throws SQLException{
+
+	// READ
+	public List<Empleado> verEmpleados() throws SQLException {
 		List<Empleado> empleadoSQL = new ArrayList<>();
-		String sql= "SELECT * FROM EMPLEADO";
+		String sql = "SELECT * FROM EMPLEADO";
 		try (Connection con = ConexionBD.getConnection();
 				Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql)) {
-			
+
 			while (rs.next()) {
 				Empleado empleado = new Empleado();
 				empleado.setId(rs.getInt("id"));
@@ -44,29 +45,30 @@ public class EmpleadoDAO {
 				empleado.setDepartamento(rs.getString("departamento"));
 				empleadoSQL.add(empleado);
 			}
-			
-		}catch (SQLException e) {
+
+		} catch (SQLException e) {
 			System.out.println("No se ha podido ver empleados");
 			e.printStackTrace();
 		}
 		return empleadoSQL;
 	}
-	//UPDATE
+
+	// UPDATE
 	public void actualizarEmpleados(Empleado empleado) throws SQLException {
-		String sql="UPDATE EMPLEADO SET nombre=?, email=?, departamento=? WHERE id=?";
+		String sql = "UPDATE EMPLEADO SET nombre=?, email=?, departamento=? WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, empleado.getNombre());
 			st.setString(2, empleado.getEmail());
 			st.setString(3, empleado.getDepartamento());
 			st.setInt(4, empleado.getId());
 			st.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Error al actualizar empleados");
+			e.printStackTrace();
 		}
-		 catch (SQLException e) {
-				System.out.println("Error al actualizar empleados");
-				e.printStackTrace();
-			}
 	}
-	//DELETE
+
+	// DELETE
 	public void eliminarEmpleado(int idEmp) throws SQLException {
 		String sql = "DELETE FROM EMPLEADO WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -79,5 +81,5 @@ public class EmpleadoDAO {
 		}
 
 	}
-	
+
 }

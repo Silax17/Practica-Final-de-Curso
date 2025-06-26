@@ -81,23 +81,22 @@ public class ReservaDAO {
 		}
 	}
 //CONFLICTO HORAS
-	public boolean conflictoHorario(Reserva reserva) throws SQLException{
-		String sql="SELECT COUNT(*) FROM RESERVA WHERE sala_id=? AND fecha=?"
-				+ "AND (hora_inicio < ? AND hora_final > ?)";
-		try(Connection con=ConexionBD.getConnection(); PreparedStatement st=con.prepareStatement(sql)){
-			st.setInt(1, reserva.getSala_id()); //ver sala 
-			st.setDate(2, Date.valueOf(reserva.getFecha()));// ver fecha
-			st.setTime(3, Time.valueOf(reserva.getHora_final())); //nueva hora final
-			st.setTime(4, Time.valueOf(reserva.getHora_inicio()));//nuevoa hora inicio
-			
-			try(ResultSet rs=st.executeQuery()){
-				if(rs.next()) {
-					return rs.getInt(1)>0;
-					
-				}
-			}
-		}
-		return false;
-	}
+	public boolean conflictoHorario(Reserva reserva) throws SQLException {
+	    String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? AND hora_inicio < ? AND hora_final > ?";
+	    try (Connection con = ConexionBD.getConnection();
+	         PreparedStatement st = con.prepareStatement(sql)) {
+	         
+	        st.setInt(1, reserva.getSala_id());
+	        st.setDate(2, Date.valueOf(reserva.getFecha()));
+	        st.setTime(3, Time.valueOf(reserva.getHora_final()));
+	        st.setTime(4, Time.valueOf(reserva.getHora_inicio()));
 
+	        try (ResultSet rs = st.executeQuery()) {
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;  // Si hay al menos una reserva que se solapa
+	            }
+	        }
+	    }
+	    return false; // No hay conflicto
+	}
 }

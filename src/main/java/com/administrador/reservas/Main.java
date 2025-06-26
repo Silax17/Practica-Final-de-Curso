@@ -2,6 +2,8 @@ package com.administrador.reservas;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 import com.administrador.reservas.dao.EmpleadoDAO;
@@ -36,9 +38,9 @@ public class Main {
 				menuEmpleados();
 				;
 			case 3:
+				menuReserva();
 				;
-			case 0:
-				;
+			
 
 			}
 
@@ -96,6 +98,36 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				crearEmpleado();
+			case 2:
+				verEmpleado();
+			case 3:
+				actualizarEmp();
+			case 4:
+				eliminarEmp();
+
+			}
+
+		} while (opcion != 0);
+		{
+			System.out.println("Saliendo...");
+		}
+
+	}
+
+	public static void menuReserva() {
+		int opcion;
+		do {
+			System.out.println("\nGestionar Reservas");
+			System.out.println("1.Reservar");
+			System.out.println("2.Ver Reservas");
+			System.out.println("3.Actualizar Reserva");
+			System.out.println("4.Quitar Reserva");
+			System.out.println("0. Volver al menu principal");
+			opcion = Intscan.nextInt();
+
+			switch (opcion) {
+			case 1:
+				crearEmpleado()
 
 				;
 			case 2:
@@ -103,8 +135,12 @@ public class Main {
 
 				;
 			case 3:
-				actualizarEmp();
+				actualizarEmp()
+
+				;
 			case 4:
+				eliminarEmp()
+
 				;
 
 			}
@@ -230,7 +266,7 @@ public class Main {
 			System.out.println("Departamento del Empleado: ");
 			String departamento = Strscan.nextLine();
 			System.out.println("Se va actualizar la sala...");
-			
+
 			Empleado empleado = new Empleado(id, nombre, email, departamento);
 			if (empleadoDAO.validarEmpleado(empleado)) {
 				empleadoDAO.actualizarEmpleados(empleado);
@@ -238,21 +274,44 @@ public class Main {
 			} else {
 				System.out.println("Datos inválidos, no se actualizó el empleado.");
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
+
 	public static void eliminarEmp() {
 		try {
 			System.out.println("Empleado que quieras eliminar con ID: ");
-			int id= Intscan.nextInt();
+			int id = Intscan.nextInt();
 			System.out.println("Eliminando Empleado...");
 			empleadoDAO.eliminarEmpleado(id);
 			System.out.println("Empleado Eliminado");
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+	}
+
+	public static void crearReserva() {
+		System.out.println("ID del Empleado: ");
+		int emp_id = Intscan.nextInt();
+
+		System.out.println("ID de la Sala: ");
+		int sala_id = Intscan.nextInt();
+
+		System.out.println("Fecha de la reserva (yyyy-MM-dd)");
+		LocalDate fecha=LocalDate.parse(Strscan.nextLine());
+		
+		System.out.println("Hora inicio (HH:mm)");
+		LocalTime horaInicio = LocalTime.parse(Strscan.nextLine());
+		
+		System.out.println("Hora final (HH:mm)");
+		LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
+		
+		if(reservaDAO.conflictoHorario(sala_id,fecha,horaInicio,horaFinal)) {
+			
+		}
+
 	}
 
 }

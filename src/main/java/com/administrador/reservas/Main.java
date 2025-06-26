@@ -169,14 +169,19 @@ public class Main {
 		try {
 			System.out.println("Nombre de la Sala: ");
 			String nombre = Strscan.nextLine();
+			Intscan.nextLine();
+
 			System.out.println("Capacidad de la Sala: ");
 			int capacidad = Intscan.nextInt();
 			Intscan.nextLine();
+
 			System.out.println("Recursos Disponibles en la Sala: ");
 			String rec_disp = Strscan.nextLine();
+			Intscan.nextLine();
 
 			Sala sala = new Sala(0, nombre, capacidad, rec_disp);
 			salaDAO.agregarSala(sala);
+
 			System.out.println("Sala creada");
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
@@ -198,15 +203,25 @@ public class Main {
 
 	public static void actualizarSala() {
 		try {
+			verSalas();
 			System.out.println("Actualizar Sala con ID: ");
 			int id = Intscan.nextInt();
+			Intscan.nextLine();
+
 			System.out.println("Nombre que desea: ");
 			String nombre = Strscan.nextLine();
+			Intscan.nextLine();
+
 			System.out.println("Capacidad que desea: ");
 			int capacidad = Intscan.nextInt();
+			Intscan.nextLine();
+
 			System.out.println("Recursos que desea: ");
 			String recursos = Strscan.nextLine();
+			Intscan.nextLine();
+
 			System.out.println("Se va actualizar la sala...");
+
 			Sala sala = new Sala(id, nombre, capacidad, recursos);
 			salaDAO.actualizarSala(sala);
 			System.out.println("Sala Actualizada");
@@ -219,6 +234,7 @@ public class Main {
 
 	public static void eliminarSala() {
 		try {
+			verSalas();
 			System.out.println("Eliminar Sala con ID: ");
 			int id = Intscan.nextInt();
 			System.out.println("Eliminando Sala...");
@@ -264,6 +280,7 @@ public class Main {
 
 	public static void verEmpleado() {
 		try {
+
 			for (Empleado empleado : empleadoDAO.verEmpleados()) {
 				System.out.println(empleado);
 
@@ -277,14 +294,23 @@ public class Main {
 
 	public static void actualizarEmp() {
 		try {
+			verEmpleado();
 			System.out.println("Actualizar Empleado con ID: ");
 			int id = Intscan.nextInt();
+			Intscan.nextLine();
+
 			System.out.println("Nombre del Empleado: ");
 			String nombre = Strscan.nextLine();
+			Intscan.nextLine();
+
 			System.out.println("Email del Empleado: ");
 			String email = Strscan.nextLine();
+			Intscan.nextLine();
+
 			System.out.println("Departamento del Empleado: ");
 			String departamento = Strscan.nextLine();
+			Intscan.nextLine();
+
 			System.out.println("Se va actualizar la sala...");
 
 			Empleado empleado = new Empleado(id, nombre, email, departamento);
@@ -303,11 +329,15 @@ public class Main {
 
 	public static void eliminarEmp() {
 		try {
+			verEmpleado();
 			System.out.println("Empleado que quieras eliminar con ID: ");
 			int id = Intscan.nextInt();
+			Intscan.nextLine();
+
 			System.out.println("Eliminando Empleado...");
 			empleadoDAO.eliminarEmpleado(id);
 			System.out.println("Empleado Eliminado");
+
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();

@@ -380,6 +380,7 @@ public static void actualizarReserva() {
         }
 
         reservaDAO.actualizarReserva(reserva);
+        System.out.println("Reserva actualizada");
 
     } catch (SQLException e) {
         System.out.println("Error al actualizar la reserva: " + e.getMessage());

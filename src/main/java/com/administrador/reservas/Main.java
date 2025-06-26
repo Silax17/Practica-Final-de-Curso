@@ -10,6 +10,7 @@ import com.administrador.reservas.dao.EmpleadoDAO;
 import com.administrador.reservas.dao.ReservaDAO;
 import com.administrador.reservas.dao.SalaDAO;
 import com.administrador.reservas.modelo.Empleado;
+import com.administrador.reservas.modelo.Reserva;
 import com.administrador.reservas.modelo.Sala;
 
 public class Main {
@@ -127,7 +128,7 @@ public class Main {
 
 			switch (opcion) {
 			case 1:
-				crearEmpleado()
+				crearReserva()
 
 				;
 			case 2:
@@ -293,6 +294,7 @@ public class Main {
 	}
 
 	public static void crearReserva() {
+		try {
 		System.out.println("ID del Empleado: ");
 		int emp_id = Intscan.nextInt();
 
@@ -308,10 +310,19 @@ public class Main {
 		System.out.println("Hora final (HH:mm)");
 		LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
 		
-		if(reservaDAO.conflictoHorario(sala_id,fecha,horaInicio,horaFinal)) {
-			
+		 if (reservaDAO.conflictoHorario(sala_id, fecha, horaInicio, horaFinal)) {
+	            System.out.println("Error: La sala ya está reservada en ese horario.");
+	        }else {
+	        	Reserva reserva = new Reserva(0,emp_id,sala_id,fecha,horaInicio,horaFinal);
+	        	reservaDAO.agregarReserva(reserva);
+	        	System.out.println("Reserva creada");
+	        	
+	        }
+		}catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
 		}
 
 	}
+	public List<Reserva> verReservas()
 
 }

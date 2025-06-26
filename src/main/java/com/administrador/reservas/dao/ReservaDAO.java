@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.administrador.reservas.ConexionBD;
 import com.administrador.reservas.modelo.Reserva;
@@ -23,6 +25,7 @@ public class ReservaDAO {
 			st.setDate(3, Date.valueOf(reserva.getFecha()));
 			st.setTime(4, Time.valueOf(reserva.getHora_inicio()));
 			st.setTime(5, Time.valueOf(reserva.getHora_final()));
+			st.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error al agregar reserva");
 			e.printStackTrace();
@@ -81,22 +84,21 @@ public class ReservaDAO {
 		}
 	}
 //CONFLICTO HORAS
-	public boolean conflictoHorario(Reserva reserva) throws SQLException {
-	    String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? AND hora_inicio < ? AND hora_final > ?";
-	    try (Connection con = ConexionBD.getConnection();
-	         PreparedStatement st = con.prepareStatement(sql)) {
-	         
-	        st.setInt(1, reserva.getSala_id());
-	        st.setDate(2, Date.valueOf(reserva.getFecha()));
-	        st.setTime(3, Time.valueOf(reserva.getHora_final()));
-	        st.setTime(4, Time.valueOf(reserva.getHora_inicio()));
+	public boolean conflictoHorario(int sala_id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal) throws SQLException {
+	    String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? " +
+	                 "AND (hora_inicio < ? AND hora_final > ?)";
+	    try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+	        st.setInt(1, sala_id);
+	        st.setDate(2, Date.valueOf(fecha));
+	        st.setTime(3, Time.valueOf(horaFinal));  
+	        st.setTime(4, Time.valueOf(horaInicio)); 
 
 	        try (ResultSet rs = st.executeQuery()) {
 	            if (rs.next()) {
-	                return rs.getInt(1) > 0;  // Si hay al menos una reserva que se solapa
+	                return rs.getInt(1) > 0;
 	            }
 	        }
 	    }
-	    return false; // No hay conflicto
+	    return false;
 	}
 }

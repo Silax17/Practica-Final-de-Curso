@@ -39,16 +39,13 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				menuSalas();
-				break
-				;
+				break;
 			case 2:
 				menuEmpleados();
-				break
-				;
+				break;
 			case 3:
 				menuReserva();
-				break
-				;
+				break;
 
 			}
 
@@ -72,20 +69,16 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				crearSala();
-				break
-				;
+				break;
 			case 2:
 				verSalas();
-				break
-				;
+				break;
 			case 3:
 				actualizarSala();
-				break
-				;
+				break;
 			case 4:
 				eliminarSala();
-				break
-				;
+				break;
 
 			}
 
@@ -158,6 +151,7 @@ public class Main {
 
 				;
 			case 4:
+				eliminarReserva();
 				break
 
 				;
@@ -219,7 +213,7 @@ public class Main {
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
-			
+
 		}
 	}
 
@@ -364,67 +358,68 @@ public class Main {
 		}
 
 	}
-public static void actualizarReserva() {
-	try {
-		verReservas();
-        System.out.println("ID de la Reserva para Actualizar:");
-        int id = Intscan.nextInt();
-        Intscan.nextLine();  
-        
-        Reserva reservaCompr=reservaDAO.obtenerReservaPorId(id);
-        if (reservaCompr == null) {
-            System.out.println("Error: No existe una reserva con ese ID.");
-            return;
-        }
 
-        System.out.println("ID del Empleado:");
-        int empleado_id = Intscan.nextInt();
-        Intscan.nextLine();
+	public static void actualizarReserva() {
+		try {
+			verReservas();
+			System.out.println("ID de la Reserva para Actualizar:");
+			int id = Intscan.nextInt();
+			Intscan.nextLine();
 
-        System.out.println("ID de la Sala:");
-        int sala_id = Intscan.nextInt();
-        Intscan.nextLine();
+			Reserva reservaCompr = reservaDAO.obtenerReservaPorId(id);
+			if (reservaCompr == null) {
+				System.out.println("Error: No existe una reserva con ese ID.");
+				return;
+			}
 
-        System.out.println("Fecha de la reserva (yyyy-MM-dd):");
-        LocalDate fecha = LocalDate.parse(Strscan.nextLine());
+			System.out.println("ID del Empleado:");
+			int empleado_id = Intscan.nextInt();
+			Intscan.nextLine();
 
-        System.out.println("Hora inicio (HH:mm):");
-        LocalTime horaInicio = LocalTime.parse(Strscan.nextLine());
+			System.out.println("ID de la Sala:");
+			int sala_id = Intscan.nextInt();
+			Intscan.nextLine();
 
-        System.out.println("Hora final (HH:mm):");
-        LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
+			System.out.println("Fecha de la reserva (yyyy-MM-dd):");
+			LocalDate fecha = LocalDate.parse(Strscan.nextLine());
 
-        Reserva reserva = new Reserva(id, empleado_id, sala_id, fecha, horaInicio, horaFinal);
+			System.out.println("Hora inicio (HH:mm):");
+			LocalTime horaInicio = LocalTime.parse(Strscan.nextLine());
 
-        if (reservaDAO.conflictoHorarioExceptoId(sala_id, fecha, horaInicio, horaFinal, id)) {
-            System.out.println("Error: Conflicto de horario, no se puede actualizar la reserva.");
-            return;
-        }
+			System.out.println("Hora final (HH:mm):");
+			LocalTime horaFinal = LocalTime.parse(Strscan.nextLine());
 
-        reservaDAO.actualizarReserva(reserva);
-        System.out.println("Reserva actualizada");
+			Reserva reserva = new Reserva(id, empleado_id, sala_id, fecha, horaInicio, horaFinal);
 
-    } catch (SQLException e) {
-        System.out.println("Error al actualizar la reserva: " + e.getMessage());
-        e.printStackTrace();
-    }
-}
-public static void eliminarReserva() {
-    try {
-        
-        verReservas();
+			if (reservaDAO.conflictoHorarioExceptoId(sala_id, fecha, horaInicio, horaFinal, id)) {
+				System.out.println("Error: Conflicto de horario, no se puede actualizar la reserva.");
+				return;
+			}
 
-        System.out.print("ID de la reserva a eliminar: ");
-        int id = Intscan.nextInt();
-        Intscan.nextLine();  
+			reservaDAO.actualizarReserva(reserva);
+			System.out.println("Reserva actualizada");
 
-        
-        reservaDAO.eliminarReserva(id);
+		} catch (SQLException e) {
+			System.out.println("Error al actualizar la reserva: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
-    } catch (SQLException e) {
-        System.out.println("Error al eliminar la reserva: " + e.getMessage());
-        e.printStackTrace();
-    }
-}
+	public static void eliminarReserva() {
+		try {
+
+			verReservas();
+
+			System.out.print("ID de la reserva a eliminar: ");
+			int id = Intscan.nextInt();
+			Intscan.nextLine();
+
+			reservaDAO.eliminarReserva(id);
+
+		} catch (SQLException e) {
+			System.out.println("Error al eliminar la reserva: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 }

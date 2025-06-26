@@ -41,8 +41,8 @@ public class SalaDAO { // CRUD
 				Sala sala = new Sala();
 				sala.setId(rs.getInt("id"));
 				sala.setNombre(rs.getString("nombre"));
-				sala.setCapacidad(rs.getInt("Capacidad"));
-				sala.setRecursos_disponibles(rs.getString("Recursos_disponibles"));
+				sala.setCapacidad(rs.getInt("capacidad"));
+				sala.setRecursos_disponibles(rs.getString("recursos_disponibles"));
 				salaSQL.add(sala);
 			}
 

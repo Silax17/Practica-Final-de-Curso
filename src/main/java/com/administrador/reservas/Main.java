@@ -54,7 +54,7 @@ public class Main {
 			opcion = Intscan.nextInt();
 
 			switch (opcion) {
-			case 1: crearSalaTest();
+			case 1: crearSala();
 				;
 			case 2:
 				;
@@ -70,14 +70,32 @@ public class Main {
 
 	}
 
-	public static void crearSalaTest() {
-	    try {
-	        Sala sala = new Sala(0, "Sala Prueba", 10, "TV, Pizarra");
-	        salaDAO.agregarSala(sala);
-	        System.out.println("Sala de prueba insertada.");
-	    } catch (SQLException e) {
-	        System.out.println("Error: " + e.getMessage());
-	    }
-	}
-	}
+	public static void crearSala() {
+		try {
+			System.out.println("Nombre de la Sala: ");
+			String nombre = Strscan.nextLine();
+			System.out.println("Capacidad de la Sala: ");
+			int capacidad = Intscan.nextInt();
+			Intscan.nextLine();
+			System.out.println("Recursos Disponibles en la Sala: ");
+			String rec_disp = Strscan.nextLine();
 
+			Sala sala = new Sala(0, nombre, capacidad, rec_disp);
+			salaDAO.agregarSala(sala);
+			System.out.println("Sala creada");
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	public static void verSalas() {
+		try {
+			for(Sala sala:salaDAO.verSalas()) {
+				System.out.println(sala);
+			
+			}
+		}catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+	
+}

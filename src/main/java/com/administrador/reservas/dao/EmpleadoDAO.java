@@ -67,7 +67,17 @@ public class EmpleadoDAO {
 			}
 	}
 	//DELETE
-	
-	
+	public void eliminarEmpleado(int idEmp) throws SQLException {
+		String sql = "DELETE FROM EMPLEADO WHERE id=?";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, idEmp);
+			st.executeUpdate();
 
+		} catch (SQLException e) {
+			System.out.println("Error al eliminar sala");
+			e.printStackTrace();
+		}
+
+	}
+	
 }

@@ -243,5 +243,16 @@ public class Main {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
+	public static void eliminarEmp() {
+		try {
+			System.out.println("Empleado que quieras eliminar con ID: ");
+			int id= Intscan.nextInt();
+			System.out.println("Eliminando Empleado...");
+			empleadoDAO.eliminarEmpleado(id);
+			System.out.println("Empleado Eliminado");
+		}catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
 
 }

@@ -32,7 +32,8 @@ public class Main {
 			case 1:
 				menuSalas();
 				;
-			case 2: menuEmpleados();
+			case 2:
+				menuEmpleados();
 				;
 			case 3:
 				;
@@ -98,6 +99,7 @@ public class Main {
 
 				;
 			case 2:
+				verEmpleado()
 
 				;
 			case 3:
@@ -181,8 +183,18 @@ public class Main {
 		try {
 			System.out.println("Nombre del Empleado: ");
 			String nombre = Strscan.nextLine();
+			if (nombre.trim().split("\\s+").length < 2) {
+				System.out.println("Debes ingresar al menos nombre y apellido.");
+				System.out.println("Volviendo al menu...");
+				return;
+			}
 			System.out.println("Email del Empleado: ");
 			String email = Strscan.nextLine();
+			if (!email.contains("@")) {
+				System.out.println("Email inválido. Debe contener '@'.");
+				System.out.println("Volviendo al menu...");
+				return;
+			}
 			Intscan.nextLine();
 			System.out.println("Departamento del Empleado: ");
 			String depart = Strscan.nextLine();
@@ -193,6 +205,21 @@ public class Main {
 		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+	}
+
+	public static void verEmpleado() {
+		try {
+			for (Empleado empleado : empleadoDAO.verEmpleados()) {
+				System.out.println(empleado);
+
+			}
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+	}
+	public static void actualizarEmp() {
+		System.out.println();
 	}
 
 }

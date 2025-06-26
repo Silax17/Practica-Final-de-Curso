@@ -103,7 +103,7 @@ public class Main {
 
 				;
 			case 3:
-				;
+				actualizarEmp();
 			case 4:
 				;
 
@@ -218,8 +218,30 @@ public class Main {
 		}
 
 	}
+
 	public static void actualizarEmp() {
-		System.out.println();
+		try {
+			System.out.println("Actualizar Empleado con ID: ");
+			int id = Intscan.nextInt();
+			System.out.println("Nombre del Empleado: ");
+			String nombre = Strscan.nextLine();
+			System.out.println("Email del Empleado: ");
+			String email = Strscan.nextLine();
+			System.out.println("Departamento del Empleado: ");
+			String departamento = Strscan.nextLine();
+			System.out.println("Se va actualizar la sala...");
+			
+			Empleado empleado = new Empleado(id, nombre, email, departamento);
+			if (empleadoDAO.validarEmpleado(empleado)) {
+				empleadoDAO.actualizarEmpleados(empleado);
+				System.out.println("Datos Actualizados");
+			} else {
+				System.out.println("Datos inválidos, no se actualizó el empleado.");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 
 }

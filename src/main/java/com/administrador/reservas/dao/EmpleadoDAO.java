@@ -68,7 +68,7 @@ public class EmpleadoDAO {
 		}
 	}
 
-	// DELETE   
+	// DELETE
 	public void eliminarEmpleado(int idEmp) throws SQLException {
 		String sql = "DELETE FROM EMPLEADO WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -80,6 +80,19 @@ public class EmpleadoDAO {
 			e.printStackTrace();
 		}
 
+	}
+
+	public boolean validarEmpleado(Empleado empleado) {
+		if (empleado.getNombre() == null || !empleado.getNombre().trim().contains(" ")) {
+			System.out.println("El nombre debe incluir nombre y apellido.");
+			return false;
+		}
+
+		if (empleado.getEmail() == null || !empleado.getEmail().contains("@")) {
+			System.out.println("El email debe contener '@'.");
+			return false;
+		}
+		return true;
 	}
 
 }

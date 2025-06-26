@@ -29,7 +29,7 @@ public class ReservaDAO {
 		}
 	}
 //READ
-	public List<Reserva>  verReserva() throws SQLException {
+	public List<Reserva> verReserva() throws SQLException {
 		List<Reserva> reservaSQL = new ArrayList<>();
 		String sql="SELECT * FROM RESERVA";
 		try(Connection con = ConexionBD.getConnection(); Statement st=con.createStatement(); ResultSet rs= st.executeQuery(sql)){
@@ -40,7 +40,7 @@ public class ReservaDAO {
 				reserva.setSala_id(rs.getInt("sala_id"));
 				reserva.setFecha(rs.getDate("fecha").toLocalDate());
 				reserva.setHora_inicio(rs.getTime("hora_inicio").toLocalTime());
-				reserva.setHora_final(rs.getTime("hora_inicio").toLocalTime());
+				reserva.setHora_final(rs.getTime("hora_final").toLocalTime());
 			}
 		}catch (SQLException e) {
 			System.out.println("Error al ver reserva");
@@ -48,6 +48,18 @@ public class ReservaDAO {
 		}
 		return reservaSQL;
 		
+	}
+//UPDATE
+	public void actualizarReserva(Reserva reserva) throws SQLException{
+		String sql="UPDATE RESERVA SET empleado_id=?,sala_id=?,fecha=?,hora_inicio=?,hora_final=? WHERE id=?";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)){
+			st.setInt(1,reserva.getEmpleado_id());
+			st.setInt(2,reserva.getSala_id());
+			st.setDate(3,Date.valueOf(reserva.getFecha()));
+			st.setTime(4,Time.valueOf(reserva.getHora_inicio()));
+			st.setTime(5,Time.valueOf(reserva.getHora_final()));
+			st.setInt(6, reserva.getId());
+		}
 	}
 
 }

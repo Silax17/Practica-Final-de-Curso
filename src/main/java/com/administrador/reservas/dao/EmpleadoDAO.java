@@ -18,8 +18,8 @@ public class EmpleadoDAO {
 		String sql = "INSERT INTO EMPLEADO(nombre,email,departamento) VALUES(?,?,?)";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
 			st.setString(1, empleado.getNombre());
-			st.setString(1, empleado.getEmail());
-			st.setString(1, empleado.getDepartamento());
+			st.setString(2, empleado.getEmail());
+			st.setString(3, empleado.getDepartamento());
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -68,7 +68,7 @@ public class EmpleadoDAO {
 		}
 	}
 
-	// DELETE
+	// DELETE   
 	public void eliminarEmpleado(int idEmp) throws SQLException {
 		String sql = "DELETE FROM EMPLEADO WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {

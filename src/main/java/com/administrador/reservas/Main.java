@@ -7,6 +7,7 @@ import java.util.Scanner;
 import com.administrador.reservas.dao.EmpleadoDAO;
 import com.administrador.reservas.dao.ReservaDAO;
 import com.administrador.reservas.dao.SalaDAO;
+import com.administrador.reservas.modelo.Empleado;
 import com.administrador.reservas.modelo.Sala;
 
 public class Main {
@@ -31,7 +32,7 @@ public class Main {
 			case 1:
 				menuSalas();
 				;
-			case 2:
+			case 2: menuEmpleados();
 				;
 			case 3:
 				;
@@ -41,6 +42,9 @@ public class Main {
 			}
 
 		} while (opcion != 0);
+		{
+			System.out.println("Saliendo...");
+		}
 	}
 
 	public static void menuSalas() {
@@ -51,7 +55,7 @@ public class Main {
 			System.out.println("2.Ver Salas");
 			System.out.println("3.Actualizar Salas");
 			System.out.println("4.Borrar Sala");
-			System.out.println("0. Salir");
+			System.out.println("0. Volver al menu principal");
 			opcion = Intscan.nextInt();
 
 			switch (opcion) {
@@ -61,14 +65,52 @@ public class Main {
 			case 2:
 				verSalas();
 				;
-			case 3:actualizarSala();
+			case 3:
+				actualizarSala();
 				;
-			case 4: eliminarSala();
+			case 4:
+				eliminarSala(); // Acabar de fer
 				;
 
 			}
 
 		} while (opcion != 0);
+		{
+			System.out.println("Saliendo...");
+		}
+
+	}
+
+	public static void menuEmpleados() {
+		int opcion;
+		do {
+			System.out.println("\nGestionar Empleados");
+			System.out.println("1.Alta Empleado");
+			System.out.println("2.Ver Empleados");
+			System.out.println("3.Actualizar Empleado");
+			System.out.println("4.Baja Empleado");
+			System.out.println("0. Volver al menu principal");
+			opcion = Intscan.nextInt();
+
+			switch (opcion) {
+			case 1:
+				crearEmpleado();
+
+				;
+			case 2:
+
+				;
+			case 3:
+				;
+			case 4:
+				;
+
+			}
+
+		} while (opcion != 0);
+		{
+			System.out.println("Saliendo...");
+		}
 
 	}
 
@@ -119,19 +161,38 @@ public class Main {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
+
 	public static void eliminarSala() {
 		try {
-		System.out.println("Eliminar Sala con ID: ");
-		int id= Intscan.nextInt();
-		System.out.println("Eliminando Sala...");
-		salaDAO.eliminarSala(id);
-		System.out.println("Sala Eliminada");
-		
-		}catch(SQLException e) {
+			System.out.println("Eliminar Sala con ID: ");
+			int id = Intscan.nextInt();
+			System.out.println("Eliminando Sala...");
+			salaDAO.eliminarSala(id);
+			System.out.println("Sala Eliminada");
+
+		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
-			
+
 		}
-		
+
+	}
+
+	public static void crearEmpleado() {
+		try {
+			System.out.println("Nombre del Empleado: ");
+			String nombre = Strscan.nextLine();
+			System.out.println("Email del Empleado: ");
+			String email = Strscan.nextLine();
+			Intscan.nextLine();
+			System.out.println("Departamento del Empleado: ");
+			String depart = Strscan.nextLine();
+
+			Empleado empleado = new Empleado(0, nombre, email, depart);
+			empleadoDAO.agregarEmpleado(empleado);
+			System.out.println("Empleado dado de Alta");
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 	}
 
 }

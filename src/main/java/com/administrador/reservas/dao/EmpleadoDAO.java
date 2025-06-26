@@ -51,6 +51,23 @@ public class EmpleadoDAO {
 		}
 		return empleadoSQL;
 	}
+	//UPDATE
+	public void actualizarEmpleados(Empleado empleado) throws SQLException {
+		String sql="UPDATE EMPLEADO SET nombre=?, email=?, departamento=? WHERE id=?";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+			st.setString(1, empleado.getNombre());
+			st.setString(2, empleado.getEmail());
+			st.setString(3, empleado.getDepartamento());
+			st.setInt(4, empleado.getId());
+			st.executeUpdate();
+		}
+		 catch (SQLException e) {
+				System.out.println("Error al actualizar empleados");
+				e.printStackTrace();
+			}
+	}
+	//DELETE
+	
 	
 
 }

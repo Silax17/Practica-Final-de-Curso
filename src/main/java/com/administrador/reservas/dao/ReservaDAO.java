@@ -67,6 +67,7 @@ public class ReservaDAO {
 			st.setTime(4, Time.valueOf(reserva.getHora_inicio()));
 			st.setTime(5, Time.valueOf(reserva.getHora_final()));
 			st.setInt(6, reserva.getId());
+			st.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error al actualizar reserva");
 			e.printStackTrace();

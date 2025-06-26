@@ -39,12 +39,15 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				menuSalas();
+				break
 				;
 			case 2:
 				menuEmpleados();
+				break
 				;
 			case 3:
 				menuReserva();
+				break
 				;
 
 			}
@@ -69,15 +72,19 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				crearSala();
+				break
 				;
 			case 2:
 				verSalas();
+				break
 				;
 			case 3:
 				actualizarSala();
+				break
 				;
 			case 4:
-				eliminarSala(); // Acabar de fer
+				eliminarSala();
+				break
 				;
 
 			}
@@ -103,12 +110,16 @@ public class Main {
 			switch (opcion) {
 			case 1:
 				crearEmpleado();
+				break;
 			case 2:
 				verEmpleado();
+				break;
 			case 3:
 				actualizarEmp();
+				break;
 			case 4:
 				eliminarEmp();
+				break;
 
 			}
 
@@ -132,18 +143,22 @@ public class Main {
 
 			switch (opcion) {
 			case 1:
-				crearReserva()
+				crearReserva();
+				break
 
 				;
 			case 2:
 				verReservas();
+				break
 
 				;
 			case 3:
 				actualizarReserva();
+				break
 
 				;
 			case 4:
+				break
 
 				;
 
@@ -351,9 +366,16 @@ public class Main {
 	}
 public static void actualizarReserva() {
 	try {
+		verReservas();
         System.out.println("ID de la Reserva para Actualizar:");
         int id = Intscan.nextInt();
         Intscan.nextLine();  
+        
+        Reserva reservaCompr=reservaDAO.obtenerReservaPorId(id);
+        if (reservaCompr == null) {
+            System.out.println("Error: No existe una reserva con ese ID.");
+            return;
+        }
 
         System.out.println("ID del Empleado:");
         int empleado_id = Intscan.nextInt();

@@ -73,10 +73,16 @@ public class EmpleadoDAO {
 		String sql = "DELETE FROM EMPLEADO WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
 			st.setInt(1, idEmp);
-			st.executeUpdate();
+			int filas = st.executeUpdate();
+	        if (filas > 0) {
+	            System.out.println("Empleado eliminado correctamente.");
+	        } else {
+	            System.out.println("No se encontró ningún empleado con ese ID.");
+	        }
+		
 
 		} catch (SQLException e) {
-			System.out.println("Error al eliminar sala");
+			System.out.println("Error al eliminar empleado");
 			e.printStackTrace();
 		}
 

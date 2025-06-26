@@ -409,5 +409,22 @@ public static void actualizarReserva() {
         e.printStackTrace();
     }
 }
+public static void eliminarReserva() {
+    try {
+        
+        verReservas();
+
+        System.out.print("ID de la reserva a eliminar: ");
+        int id = Intscan.nextInt();
+        Intscan.nextLine();  
+
+        
+        reservaDAO.eliminarReserva(id);
+
+    } catch (SQLException e) {
+        System.out.println("Error al eliminar la reserva: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
 }

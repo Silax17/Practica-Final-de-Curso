@@ -79,7 +79,12 @@ public class ReservaDAO {
 		String sql = "DELETE FROM RESERVA WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
 			st.setInt(1, res_id);
-			st.executeUpdate();
+			int filas = st.executeUpdate();
+			if (filas > 0) {
+				System.out.println("Reserva eliminada correctamente.");
+			} else {
+				System.out.println("No se encontró ninguna reserva con ese ID.");
+			}
 		} catch (SQLException e) {
 			System.out.println("Error al eliminar reserva");
 			e.printStackTrace();
@@ -119,32 +124,27 @@ public class ReservaDAO {
 
 			try (ResultSet rs = st.executeQuery()) {
 				if (rs.next()) {
-					return rs.getInt(1) > 0; 
+					return rs.getInt(1) > 0;
 				}
 			}
 		}
 		return false;
 	}
+
 //COMPROBAR
 	public Reserva obtenerReservaPorId(int id) throws SQLException {
-	    String sql = "SELECT * FROM RESERVA WHERE id = ?";
-	    try (Connection con = ConexionBD.getConnection();
-	         PreparedStatement st = con.prepareStatement(sql)) {
-	        st.setInt(1, id);
-	        try (ResultSet rs = st.executeQuery()) {
-	            if (rs.next()) {
-	                return new Reserva(
-	                    rs.getInt("id"),
-	                    rs.getInt("empleado_id"),
-	                    rs.getInt("sala_id"),
-	                    rs.getDate("fecha").toLocalDate(),
-	                    rs.getTime("hora_inicio").toLocalTime(),
-	                    rs.getTime("hora_final").toLocalTime()
-	                );
-	            } else {
-	                return null; 
-	            }
-	        }
-	    }
+		String sql = "SELECT * FROM RESERVA WHERE id = ?";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, id);
+			try (ResultSet rs = st.executeQuery()) {
+				if (rs.next()) {
+					return new Reserva(rs.getInt("id"), rs.getInt("empleado_id"), rs.getInt("sala_id"),
+							rs.getDate("fecha").toLocalDate(), rs.getTime("hora_inicio").toLocalTime(),
+							rs.getTime("hora_final").toLocalTime());
+				} else {
+					return null;
+				}
+			}
+		}
 	}
 }

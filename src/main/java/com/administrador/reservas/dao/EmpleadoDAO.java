@@ -1,11 +1,16 @@
 package com.administrador.reservas.dao;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.administrador.reservas.ConexionBD;
 import com.administrador.reservas.modelo.Empleado;
+import com.administrador.reservas.modelo.Sala;
 
 public class EmpleadoDAO {
 	// CREATE
@@ -23,5 +28,29 @@ public class EmpleadoDAO {
 		}
 
 	}
+	//READ
+	public List<Empleado> verEmpleados() throws SQLException{
+		List<Empleado> empleadoSQL = new ArrayList<>();
+		String sql= "SELECT * FROM EMPLEADO";
+		try (Connection con = ConexionBD.getConnection();
+				Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql)) {
+			
+			while (rs.next()) {
+				Empleado empleado = new Empleado();
+				empleado.setId(rs.getInt("id"));
+				empleado.setNombre(rs.getString("nombre"));
+				empleado.setEmail(rs.getString("email"));
+				empleado.setDepartamento(rs.getString("departamento"));
+				empleadoSQL.add(empleado);
+			}
+			
+		}catch (SQLException e) {
+			System.out.println("No se ha podido ver empleados");
+			e.printStackTrace();
+		}
+		return empleadoSQL;
+	}
+	
 
 }

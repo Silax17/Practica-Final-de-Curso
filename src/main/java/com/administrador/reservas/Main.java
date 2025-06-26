@@ -2,20 +2,20 @@ package com.administrador.reservas;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Scanner;
+
+import com.administrador.reservas.dao.EmpleadoDAO;
+import com.administrador.reservas.dao.ReservaDAO;
+import com.administrador.reservas.dao.SalaDAO;
 
 public class Main {
+
+	private static final Scanner scanner = new Scanner(System.in);
+	private static final SalaDAO salaDAO = new SalaDAO();
+	private static final EmpleadoDAO empleadoDAO= new EmpleadoDAO();
+	private static final ReservaDAO reservaDAO=new ReservaDAO();
+
 	public static void main(String args[]) throws SQLException {
-		try(Connection con=ConexionBD.getConnection()){
-			if(con!=null && !con.isClosed()) {
-				System.out.println("Base de dades funcional");
-			}
-			else {
-				System.out.println("No funciona ");
-			}
-			
-		}catch(SQLException e) {
-			System.err.println("Error conectando a la base de datos:" + e.getMessage());
-		}
-			
+
 	}
 }

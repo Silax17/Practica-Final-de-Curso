@@ -28,7 +28,8 @@ public class Main {
 			opcion = Intscan.nextInt();
 
 			switch (opcion) {
-			case 1: menuSalas();
+			case 1:
+				menuSalas();
 				;
 			case 2:
 				;
@@ -36,7 +37,7 @@ public class Main {
 				;
 			case 0:
 				;
-			
+
 			}
 
 		} while (opcion != 0);
@@ -54,15 +55,16 @@ public class Main {
 			opcion = Intscan.nextInt();
 
 			switch (opcion) {
-			case 1: crearSala();
+			case 1:
+				crearSala();
 				;
 			case 2:
+				verSalas();
 				;
-			case 3:
+			case 3:actualizarSala();
 				;
 			case 4:
 				;
-			
 
 			}
 
@@ -87,15 +89,35 @@ public class Main {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
+
 	public static void verSalas() {
 		try {
-			for(Sala sala:salaDAO.verSalas()) {
+			for (Sala sala : salaDAO.verSalas()) {
 				System.out.println(sala);
-			
+
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}
-	
+
+	public static void actualizarSala() {
+		try {
+			System.out.println("Actualizar Sala con ID: ");
+			int id = Intscan.nextInt();
+			System.out.println("Nombre que desea: ");
+			String nombre = Strscan.nextLine();
+			System.out.println("Capacidad que desea: ");
+			int capacidad = Intscan.nextInt();
+			System.out.println("Recursos que desea: ");
+			String recursos = Strscan.nextLine();
+			System.out.println("Se va actualizar la sala");
+			Sala sala = new Sala(id, nombre, capacidad, recursos);
+			salaDAO.actualizarSala(sala);
+			System.out.println("Sala Actualizada");
+		} catch (SQLException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
+
 }

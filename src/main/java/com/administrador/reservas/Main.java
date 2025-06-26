@@ -237,8 +237,8 @@ public class Main {
 			verSalas();
 			System.out.println("Eliminar Sala con ID: ");
 			int id = Intscan.nextInt();
-			System.out.println("Eliminando Sala...");
-			salaDAO.eliminarSala(id);
+			System.out.println("Eliminando Sala y sus reservas");
+			salaDAO.eliminarSalaRes(id);
 			System.out.println("Sala Eliminada");
 
 		} catch (SQLException e) {

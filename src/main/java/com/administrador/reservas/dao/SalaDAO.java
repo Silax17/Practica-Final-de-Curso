@@ -69,8 +69,8 @@ public class SalaDAO { // CRUD
 		}
 	}
 
-	// DELETE
-	public void eliminarSala(int idSala) throws SQLException {
+	// DELETE 1 solo sala
+	/*public void eliminarSala(int idSala) throws SQLException {
 		String sql = "DELETE FROM SALA WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
 			st.setInt(1, idSala);
@@ -87,5 +87,23 @@ public class SalaDAO { // CRUD
 			e.printStackTrace();
 		}
 
+	}*/
+	//DELETE 2 Al eliminar Sala tienes que elimina Reserva (Foreign key)
+	public void eliminarSalaRes(int id) throws SQLException {
+	    try (Connection con = ConexionBD.getConnection()) {
+	        
+	        String sql1 = "DELETE FROM RESERVA WHERE sala_id = ?";
+	        try (PreparedStatement st1 = con.prepareStatement(sql1)) {
+	            st1.setInt(1, id);
+	            st1.executeUpdate();
+	        }
+
+	        
+	        String sql2 = "DELETE FROM SALA WHERE id = ?";
+	        try (PreparedStatement st2 = con.prepareStatement(sql2)) {
+	            st2.setInt(1, id);
+	            st2.executeUpdate();
+	        }
+	    }
 	}
 }

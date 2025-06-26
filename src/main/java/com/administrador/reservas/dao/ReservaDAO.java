@@ -84,22 +84,44 @@ public class ReservaDAO {
 			e.printStackTrace();
 		}
 	}
-//CONFLICTO HORAS
-	public boolean conflictoHorario(int sala_id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal) throws SQLException {
-	    String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? " +
-	                 "AND (hora_inicio < ? AND hora_final > ?)";
-	    try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
-	        st.setInt(1, sala_id);
-	        st.setDate(2, Date.valueOf(fecha));
-	        st.setTime(3, Time.valueOf(horaFinal));  
-	        st.setTime(4, Time.valueOf(horaInicio)); 
 
-	        try (ResultSet rs = st.executeQuery()) {
-	            if (rs.next()) {
-	                return rs.getInt(1) > 0;
-	            }
-	        }
-	    }
-	    return false;
+//CONFLICTO HORAS
+	public boolean conflictoHorario(int sala_id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal)
+			throws SQLException {
+		String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? "
+				+ "AND (hora_inicio < ? AND hora_final > ?)";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, sala_id);
+			st.setDate(2, Date.valueOf(fecha));
+			st.setTime(3, Time.valueOf(horaFinal));
+			st.setTime(4, Time.valueOf(horaInicio));
+
+			try (ResultSet rs = st.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt(1) > 0;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean conflictoHorarioExceptoId(int salaId, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal,
+			int idReservaIgnorar) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? "
+				+ "AND (hora_inicio < ? AND hora_final > ?) AND id <> ?";
+		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
+			st.setInt(1, salaId);
+			st.setDate(2, Date.valueOf(fecha));
+			st.setTime(3, Time.valueOf(horaFinal));
+			st.setTime(4, Time.valueOf(horaInicio));
+			st.setInt(5, idReservaIgnorar);
+
+			try (ResultSet rs = st.executeQuery()) {
+				if (rs.next()) {
+					return rs.getInt(1) > 0; 
+				}
+			}
+		}
+		return false;
 	}
 }

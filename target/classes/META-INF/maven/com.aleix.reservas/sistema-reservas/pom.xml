@@ -8,34 +8,47 @@
   <name>Sistema de reservas</name>
   
   <dependencies>
-  <!--Dependencia MySQL-->
+  <!-- Dependencia MySQL -->
   <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version> <!-- o la versión más reciente -->
+    <version>8.0.33</version> 
 </dependency>
-<!--Dependencia JUnit 5-->
+<!-- Dependencia JUnit 5 -->
 <dependency>
     <groupId>org.junit.jupiter</groupId>
     <artifactId>junit-jupiter-engine</artifactId>
     <version>5.10.0</version>
     <scope>test</scope>
 </dependency>
-<!-- Dependencia Mockito-->
+<!-- Dependencia Mockito -->
 <dependency>
     <groupId>org.mockito</groupId>
     <artifactId>mockito-core</artifactId>
     <version>5.12.0</version>
     <scope>test</scope>
 </dependency>
-<!-- Dependencia Hamcrest-->
+<!-- Dependencia Hamcrest -->
 <dependency>
     <groupId>org.hamcrest</groupId>
     <artifactId>hamcrest</artifactId>
     <version>2.2</version>
     <scope>test</scope>
 </dependency>
-
+<!-- Dependencia Cucumber Java -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java</artifactId>
+    <version>7.15.0</version>
+    <scope>test</scope>
+</dependency>
+<!-- Dependencia Cucumber JUnit -->
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-junit</artifactId>
+    <version>7.15.0</version>
+    <scope>test</scope>
+</dependency>
 
   </dependencies>
 </project>

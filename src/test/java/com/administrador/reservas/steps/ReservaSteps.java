@@ -1,67 +1,58 @@
 package com.administrador.reservas.steps;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import com.administrador.reservas.dao.ReservaDAO;
 import com.administrador.reservas.modelo.Reserva;
 
 import io.cucumber.java.en.*;
 
+import java.sql.SQLException;
+
 public class ReservaSteps {
 
     private ReservaDAO reservaDAO = new ReservaDAO();
-    private Reserva reserva;
-    private boolean resultado;
-    private int idReserva;
+    private Reserva reservaObtenida;
+    private boolean eliminado;
+    private int reservaId;
 
-    @Given("que tengo los datos de una reserva con empleadoId {int}, salaId {int}, fecha {string}, hora inicio {string} y hora fin {string}")
-    public void tengo_los_datos_de_una_reserva(int empleadoId, int salaId, String fecha, String horaInicio, String horaFin) {
-        reserva = new Reserva();
-        reserva.setEmpleado_id(empleadoId);
-        reserva.setId(salaId);
-        reserva.setFecha(LocalDate.parse(fecha));
-        reserva.setHora_inicio(LocalTime.parse(horaInicio));
-        reserva.setHora_final(LocalTime.parse(horaFin));
-    }
-    @When("creo la reserva en la base de datos")
-    public void creo_la_reserva_en_la_base_de_datos() {
-        try {
-            reservaDAO.agregarReserva(reserva);
-            resultado = true;
-        } catch (SQLException e) {
-            resultado = false;
-            e.printStackTrace();
-        }
+    // --- Step para obtener reserva por id ---
+    @Given("existe una reserva con ID {int}")
+    public void existeUnaReservaConID(int id) throws SQLException {
+        reservaId = id;
+        reservaObtenida = reservaDAO.obtenerReservaPorId(id);
+        // Nota: para pruebas reales deberías tener datos en BD o mockear DAO.
+        // Aquí asumimos que la reserva existe si no es null.
+        assertNotNull(reservaObtenida, "La reserva con ID " + id + " no existe");
     }
 
-    @Then("la reserva se guarda correctamente en la base de datos")
-    public void la_reserva_se_guarda_correctamente_en_la_base_de_datos() {
-        assertTrue(resultado, "La reserva no se guardó correctamente.");
+    @When("obtengo la reserva con ID {int}")
+    public void obtengoLaReservaConID(int id) throws SQLException {
+        reservaObtenida = reservaDAO.obtenerReservaPorId(id);
     }
 
-    @Given("que existe una reserva con ID {int} en la base de datos")
-    public void que_existe_una_reserva_con_ID_en_la_base_de_datos(int id) {
-       
-        idReserva = id;
+    @Then("la reserva obtenida debe tener ID {int}")
+    public void laReservaObtenidaDebeTenerID(int id) {
+        assertNotNull(reservaObtenida, "No se encontró la reserva");
+        assertEquals(id, reservaObtenida.getId());
+    }
+
+    
+    @Given("que quiero eliminar la reserva con ID {int}")
+    public void queQuieroEliminarLaReservaConID(int id) {
+        this.reservaId = id;
     }
 
     @When("elimino la reserva con ID {int}")
-    public void elimino_la_reserva_con_ID(int id) {
-        try {
-            reservaDAO.eliminarReserva(id);
-            resultado = true;
-        } catch (SQLException e) {
-            resultado = false;
-            e.printStackTrace();
-        }
+    public void eliminoLaReservaConID(int id) throws SQLException {
+        reservaDAO.eliminarReserva(id);
+        
+        eliminado = true;
     }
 
-    @Then("la reserva se elimina correctamente de la base de datos")
-    public void la_reserva_se_elimina_correctamente_de_la_base_de_datos() {
-        assertTrue(resultado, "La reserva no se eliminó correctamente.");
+    @Then("la reserva con ID {int} ya no debe existir")
+    public void laReservaConIDYaNoDebeExistir(int id) throws SQLException {
+        Reserva r = reservaDAO.obtenerReservaPorId(id);
+        assertNull(r, "La reserva con ID " + id + " aún existe");
+        assertTrue(eliminado);
     }
 }

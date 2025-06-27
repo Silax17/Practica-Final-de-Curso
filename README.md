@@ -24,7 +24,7 @@ La aplicación utiliza una base de datos MySQL para almacenar la información, y
 
    -Ejecuta la clase main desde Eclipse para ver la funcion del proyecto
 
-##Instrucciones para Importar y Usar la Base de Datos**
+## Instrucciones para Importar y Usar la Base de Datos
 1. **Instalar MySQL**
    
    - Descargar e instalar MySQL Server

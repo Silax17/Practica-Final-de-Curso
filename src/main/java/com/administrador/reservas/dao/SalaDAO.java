@@ -53,6 +53,26 @@ public class SalaDAO { // CRUD
 		return salaSQL;
 
 	}
+	public Sala verSalaPorId(int id) throws SQLException {
+	    Sala sala = null;
+	    String sql = "SELECT * FROM SALA WHERE id = ?";
+	    try (Connection con = ConexionBD.getConnection();
+	         PreparedStatement st = con.prepareStatement(sql)) {
+	        st.setInt(1, id);
+	        try (ResultSet rs = st.executeQuery()) {
+	            if (rs.next()) {
+	                sala = new Sala();
+	                sala.setId(rs.getInt("id"));
+	                sala.setNombre(rs.getString("nombre"));
+	                sala.setCapacidad(rs.getInt("capacidad"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Error al obtener la sala por ID");
+	        e.printStackTrace();
+	    }
+	    return sala;
+	}
 
 	// UPDATE
 	public void actualizarSala(Sala sala) throws SQLException {

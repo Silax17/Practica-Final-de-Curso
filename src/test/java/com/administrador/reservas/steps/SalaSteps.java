@@ -1,6 +1,9 @@
 package com.administrador.reservas.steps;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.sql.SQLException;
+
 import io.cucumber.java.en.*;
 import com.administrador.reservas.dao.SalaDAO;
 import com.administrador.reservas.modelo.Sala;
@@ -34,8 +37,8 @@ public class SalaSteps {
     }
 
     @Given("que existe una sala con ID {int} en el sistema")
-    public void existe_una_sala_con_id(int id) {
-        sala = salaDAO.obtenerSalaPorId(id);
+    public void existe_una_sala_con_id(int id) throws SQLException {
+        sala = salaDAO.verSalaPorId(id);
         assertNotNull(sala);
     }
 

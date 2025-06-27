@@ -86,7 +86,7 @@ public class SalaDAOTest {
     }
 
 
-    // Cerramos el mock estático
+
     @org.junit.jupiter.api.AfterEach
     public void tearDown() {
         if (conexionBDMockStatic != null) {

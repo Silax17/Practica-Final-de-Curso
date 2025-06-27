@@ -14,5 +14,21 @@
     <artifactId>mysql-connector-java</artifactId>
     <version>8.0.33</version> <!-- o la versión más reciente -->
 </dependency>
+<!--Dependencia JUnit 5-->
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter-engine</artifactId>
+    <version>5.10.0</version>
+    <scope>test</scope>
+</dependency>
+<!-- Dependencia Mockito-->
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <version>5.12.0</version>
+    <scope>test</scope>
+</dependency>
+
+
   </dependencies>
 </project>

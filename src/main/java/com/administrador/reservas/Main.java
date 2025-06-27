@@ -27,7 +27,7 @@ public class Main {
 	private static final ReservaDAO reservaDAO = new ReservaDAO();
 
 	public static void main(String args[]) throws SQLException {
-		int opcion; //Menu para llamar a otros menus
+		int opcion; // Menu para llamar a otros menus
 		do {
 			System.out.println("\nMenu");
 			System.out.println("1.Menu Sala");
@@ -36,7 +36,7 @@ public class Main {
 			System.out.println("0.Salir");
 			opcion = Intscan.nextInt();
 
-			switch (opcion) { //Llamar a los otros menu con funciones
+			switch (opcion) { // Llamar a los otros menu con funciones
 			case 1:
 				menuSalas();
 				break;
@@ -55,7 +55,7 @@ public class Main {
 		}
 	}
 
-	public static void menuSalas() { //menu sala para gestionar
+	public static void menuSalas() { // menu sala para gestionar
 		int opcion;
 		do {
 			System.out.println("\nGestionar Salas");
@@ -66,7 +66,7 @@ public class Main {
 			System.out.println("0. Volver al menu principal");
 			opcion = Intscan.nextInt();
 
-			switch (opcion) { //Llamar las funciones para las opciones
+			switch (opcion) { // Llamar las funciones para las opciones
 			case 1:
 				crearSala();
 				break;
@@ -89,7 +89,7 @@ public class Main {
 
 	}
 
-	public static void menuEmpleados() { //Menu para gestionar Empleados
+	public static void menuEmpleados() { // Menu para gestionar Empleados
 		int opcion;
 		do {
 			System.out.println("\nGestionar Empleados");
@@ -123,7 +123,7 @@ public class Main {
 
 	}
 
-	public static void menuReserva() {//Menu para gestionar Reservas
+	public static void menuReserva() {// Menu para gestionar Reservas
 		int opcion;
 		do {
 			System.out.println("\nGestionar Reservas");
@@ -134,7 +134,7 @@ public class Main {
 			System.out.println("0. Volver al menu principal");
 			opcion = Intscan.nextInt();
 
-			switch (opcion) {//Llamar las funciones para las opciones
+			switch (opcion) {// Llamar las funciones para las opciones
 			case 1:
 				crearReserva();
 				break
@@ -165,7 +165,7 @@ public class Main {
 
 	}
 
-	public static void crearSala() { //Crea la sala y llama a la clase SalaDAO para crearla
+	public static void crearSala() { // Crea la sala y llama a la clase SalaDAO para crearla
 		try {
 			System.out.println("Nombre de la Sala: ");
 			String nombre = Strscan.nextLine();
@@ -187,7 +187,7 @@ public class Main {
 		}
 	}
 
-	public static void verSalas() { //Obtiene las salas llamando a la clase Sala DAO
+	public static void verSalas() { // Obtiene las salas llamando a la clase Sala DAO
 		try {
 			for (Sala sala : salaDAO.verSalas()) {
 				System.out.println(sala);
@@ -199,7 +199,7 @@ public class Main {
 		}
 	}
 
-	public static void actualizarSala() { //Modifica el contenido llamando a la clase SalaDAO
+	public static void actualizarSala() { // Modifica el contenido llamando a la clase SalaDAO
 		try {
 			verSalas();
 			System.out.println("Actualizar Sala con ID: ");
@@ -228,7 +228,7 @@ public class Main {
 		}
 	}
 
-	public static void eliminarSala() { //Elimina la sala llamando a la clase SalaDAO
+	public static void eliminarSala() { // Elimina la sala llamando a la clase SalaDAO
 		try {
 			verSalas();
 			System.out.println("Eliminar Sala con ID: ");
@@ -247,7 +247,7 @@ public class Main {
 
 	}
 
-	public static void crearEmpleado() { //Crea el empleado llamando a la clase EmpleadoDAO
+	public static void crearEmpleado() { // Crea el empleado llamando a la clase EmpleadoDAO
 		try {
 			System.out.println("Nombre del Empleado: ");
 			String nombre = Strscan.nextLine();
@@ -276,7 +276,7 @@ public class Main {
 		}
 	}
 
-	public static void verEmpleado() { //Enseña los empleados llamando a la clase empleadoDAO
+	public static void verEmpleado() { // Enseña los empleados llamando a la clase empleadoDAO
 		try {
 
 			for (Empleado empleado : empleadoDAO.verEmpleados()) {
@@ -290,7 +290,7 @@ public class Main {
 
 	}
 
-	public static void actualizarEmp() {//Actualiza el contenido de un empleado llamando a la clase EmpeladoDAO
+	public static void actualizarEmp() {// Actualiza el contenido de un empleado llamando a la clase EmpeladoDAO
 		try {
 			verEmpleado();
 			System.out.println("Actualizar Empleado con ID: ");
@@ -337,7 +337,7 @@ public class Main {
 		}
 	}
 
-	public static void crearReserva() {//Crear la reserva a partir de la clase ReservaDAO y los id de sala y empleado
+	public static void crearReserva() {// Crear la reserva a partir de la clase ReservaDAO y los id de sala y empleado
 		try {
 			System.out.println("ID del Empleado: ");
 			int emp_id = Intscan.nextInt();
@@ -369,7 +369,7 @@ public class Main {
 
 	}
 
-	public static void verReservas() { //Muestra las reservas llamando a la funcion
+	public static void verReservas() { // Muestra las reservas llamando a la funcion
 		try {
 
 			for (Reserva reservas : reservaDAO.verReserva()) {
@@ -382,7 +382,7 @@ public class Main {
 
 	}
 
-	public static void actualizarReserva() { //Modifica el contenido de la reserva
+	public static void actualizarReserva() { // Modifica el contenido de la reserva
 		try {
 			verReservas();
 			System.out.println(" ");
@@ -433,7 +433,7 @@ public class Main {
 		}
 	}
 
-	public static void eliminarReserva() { //Elimina la reserva si existe
+	public static void eliminarReserva() { // Elimina la reserva si existe
 		try {
 
 			verReservas();

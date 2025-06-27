@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Reserva {
+	/**
+	 * lase encargada de representar una reserva del sistema de reservas.
+	 */
 	private int id;
 	private int empleado_id;
 	private int sala_id;
@@ -11,9 +14,10 @@ public class Reserva {
 	private LocalTime hora_inicio;
 	private LocalTime hora_final;
 
-	public Reserva() {
+	public Reserva() { // Cosntructor Vació
 	}
 
+	// Constructor Completo
 	public Reserva(int id, int empleado_id, int sala_id, LocalDate fecha, LocalTime hora_inicio, LocalTime hora_final) {
 		this.id = id;
 		this.empleado_id = empleado_id;
@@ -23,6 +27,7 @@ public class Reserva {
 		this.hora_final = hora_final;
 	}
 
+	// Getters i Setters
 	public int getId() {
 		return id;
 	}
@@ -76,6 +81,5 @@ public class Reserva {
 		return "Reserva [id=" + id + ", empleado_id=" + empleado_id + ", sala_id=" + sala_id + ", fecha=" + fecha
 				+ ", hora_inicio=" + hora_inicio + ", hora_final=" + hora_final + "]";
 	}
-	
 
 }

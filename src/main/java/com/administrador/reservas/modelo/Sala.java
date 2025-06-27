@@ -1,20 +1,24 @@
 package com.administrador.reservas.modelo;
 
 public class Sala {
+	/**
+	 * lase encargada de representar una sala del sistema de reservas.
+	 */
 	private int id;
 	private String nombre;
 	private int capacidad;
 	private String recursos_disponibles;
 	
-	public Sala() {}
+	public Sala() {} //Constructor Vació
 
+	//Constructor completo
 	public Sala(int id, String nombre, int capacidad, String recursos_disponibles) {
 		this.id = id;
 		this.nombre = nombre;
 		this.capacidad = capacidad;
 		this.recursos_disponibles = recursos_disponibles;
 	}
-
+	//Getters i Setters
 	public int getId() {
 		return id;
 	}

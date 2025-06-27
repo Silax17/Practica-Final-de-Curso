@@ -1,14 +1,18 @@
 package com.administrador.reservas.modelo;
 
 public class Empleado {
+	/**
+	 * Clase encargada de representar un EMpleado del sistema de reservas.
+	 */
 	private int id;
 	private String nombre;
 	private String email;
 	private String departamento;
 
-	public Empleado() {
+	public Empleado() { // Constructor vacío
 	}
 
+	// Constructor completo
 	public Empleado(int id, String nombre, String email, String departamento) {
 		this.id = id;
 		this.nombre = nombre;
@@ -17,6 +21,7 @@ public class Empleado {
 
 	}
 
+	// Getters i Setters
 	public int getId() {
 		return id;
 	}
@@ -54,6 +59,5 @@ public class Empleado {
 		return "Empleado [id=" + id + ", nombre=" + nombre + ", email=" + email + ", departamento=" + departamento
 				+ "]";
 	}
-	
 
 }

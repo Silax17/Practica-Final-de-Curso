@@ -20,7 +20,7 @@ La aplicación utiliza una base de datos MySQL para almacenar la información, y
    - En Eclipse, ve a **Window > Prefences > Java > Installed JRes** y añade la version correcta de Java
    - Configurar el proyecto para usar esa version
 
-3. ** Ejecutar: **
+3. **Ejecutar:**
 
    -Ejecuta la clase main desde Eclipse para ver la funcion del proyecto
 
@@ -32,7 +32,20 @@ La aplicación utiliza una base de datos MySQL para almacenar la información, y
 2. **Crear la base de datos y las tablas con el script:**
 
    - Abre MySQL Workbecnh
-   - -Ejecuta el script SQL incluido en el archivo 'script_proy.sql' para crear el esquema y los datos iniciales
+   - Ejecuta el script SQL incluido en el archivo `script_proy.sql` para crear el esquema y los datos iniciales
+  
+3. **Configurar la conexión en la aplicación:**
+
+   - Revisa la clase 'ConexionBD' para asegurarte que los datos de conexión (`URL`,`usuario`,`contraseña`) coincidan con tu configuración local de MySQL juntamente con el servidor
+  
+4. **Ejecutar la aplicación**
+
+   - Al iniciar, la aplicación se conectara a la base de datos MySQL y permitirá gestionar reservas de salas según el codigo implementado
+  
+
+
+  
+   
 
 
 

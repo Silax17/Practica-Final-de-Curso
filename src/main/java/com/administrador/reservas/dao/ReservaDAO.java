@@ -16,7 +16,10 @@ import com.administrador.reservas.ConexionBD;
 import com.administrador.reservas.modelo.Reserva;
 
 public class ReservaDAO {
-//CREATE
+	/**
+	 * Clase DAO encargada de manejar las operaciones CRUD y validaciones realacionadas con las horas
+	 */
+//CREATE - Agrega una nueva reserva
 	public void agregarReserva(Reserva reserva) throws SQLException {
 		String sql = "INSERT INTO RESERVA(empleado_id,sala_id,fecha,hora_inicio,hora_final) VALUES (?,?,?,?,?)";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -32,7 +35,7 @@ public class ReservaDAO {
 		}
 	}
 
-//READ
+//READ - Obtiene todas las reservas
 	public List<Reserva> verReserva() throws SQLException {
 		List<Reserva> reservaSQL = new ArrayList<>();
 		String sql = "SELECT * FROM RESERVA";
@@ -57,7 +60,7 @@ public class ReservaDAO {
 
 	}
 
-//UPDATE
+//UPDATE - Actualiza una reserva existente
 	public void actualizarReserva(Reserva reserva) throws SQLException {
 		String sql = "UPDATE RESERVA SET empleado_id=?,sala_id=?,fecha=?,hora_inicio=?,hora_final=? WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -74,7 +77,7 @@ public class ReservaDAO {
 		}
 	}
 
-//DELETE
+//DELETE - Eliminar una reserva por su ID 
 	public void eliminarReserva(int res_id) throws SQLException {
 		String sql = "DELETE FROM RESERVA WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -91,7 +94,7 @@ public class ReservaDAO {
 		}
 	}
 
-//CONFLICTO HORAS
+// Validacion CONFLICTO HORAS
 	public boolean conflictoHorario(int sala_id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal)
 			throws SQLException {
 		String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? "
@@ -110,7 +113,7 @@ public class ReservaDAO {
 		}
 		return false;
 	}
-
+// Validacion - Verifica conflicto de horario ignorando una reserva especifica (Steps)
 	public boolean conflictoHorarioExceptoId(int salaId, LocalDate fecha, LocalTime horaInicio, LocalTime horaFinal,
 			int idReservaIgnorar) throws SQLException {
 		String sql = "SELECT COUNT(*) FROM RESERVA WHERE sala_id = ? AND fecha = ? "
@@ -131,7 +134,7 @@ public class ReservaDAO {
 		return false;
 	}
 
-//COMPROBAR
+//COMPROBAR reserva por ID
 	public Reserva obtenerReservaPorId(int id) throws SQLException {
 		String sql = "SELECT * FROM RESERVA WHERE id = ?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {

@@ -10,10 +10,12 @@ import java.sql.Statement;
 
 import com.administrador.reservas.ConexionBD;
 import com.administrador.reservas.modelo.Empleado;
-import com.administrador.reservas.modelo.Sala;
 
+/**
+ * Clase DAO que gestiona las operacions CRUD relacionadas con los empleados
+ */
 public class EmpleadoDAO {
-	// CREATE
+	// CREATE - Agregar un nuevo empleado a la base de datos
 	public void agregarEmpleado(Empleado empleado) throws SQLException {
 		String sql = "INSERT INTO EMPLEADO(nombre,email,departamento) VALUES(?,?,?)";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -29,7 +31,7 @@ public class EmpleadoDAO {
 
 	}
 
-	// READ
+	// READ - Obtener todos los empleados de la base de datos
 	public List<Empleado> verEmpleados() throws SQLException {
 		List<Empleado> empleadoSQL = new ArrayList<>();
 		String sql = "SELECT * FROM EMPLEADO";
@@ -75,7 +77,7 @@ public class EmpleadoDAO {
 	    return empleado;
 	}
 
-	// UPDATE
+	// UPDATE - Acutalizar información de un empleado existente
 	public void actualizarEmpleados(Empleado empleado) throws SQLException {
 		String sql = "UPDATE EMPLEADO SET nombre=?, email=?, departamento=? WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -90,7 +92,7 @@ public class EmpleadoDAO {
 		}
 	}
 
-	// DELETE
+	// DELETE - Eliminar empleado y sus reservas asociadas
 /*	public void eliminarEmpleado(int idEmp) throws SQLException {
 		String sql = "DELETE FROM EMPLEADO WHERE id=?";
 		try (Connection con = ConexionBD.getConnection(); PreparedStatement st = con.prepareStatement(sql)) {
@@ -109,6 +111,7 @@ public class EmpleadoDAO {
 
 	}*/
 
+// DELETE - Eliminar empleado y sus reservas asociaadas
 	public void eliminarEmpleadoRes(int id) throws SQLException {
 		try (Connection con = ConexionBD.getConnection()) {
 			

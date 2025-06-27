@@ -20,8 +20,7 @@ public class ReservaSteps {
     public void existeUnaReservaConID(int id) throws SQLException {
         reservaId = id;
         reservaObtenida = reservaDAO.obtenerReservaPorId(id);
-        // Nota: para pruebas reales deberías tener datos en BD o mockear DAO.
-        // Aquí asumimos que la reserva existe si no es null.
+       
         assertNotNull(reservaObtenida, "La reserva con ID " + id + " no existe");
     }
 

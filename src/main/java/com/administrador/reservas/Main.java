@@ -391,7 +391,12 @@ public class Main {
 	public static void actualizarReserva() {
 		try {
 			verReservas();
+			System.out.println(" ");
+			verSalas();
+			System.out.println(" ");
+			verEmpleado();
 			System.out.println("ID de la Reserva para Actualizar:");
+			System.out.println("Tienen que existir los ID de sala y empleado");
 			int id = Intscan.nextInt();
 			Intscan.nextLine();
 

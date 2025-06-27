@@ -52,6 +52,28 @@ public class EmpleadoDAO {
 		}
 		return empleadoSQL;
 	}
+	// READ - Obtener empleado por ID para los Steps
+	public Empleado obtenerEmpleadoPorId(int id) throws SQLException {
+	    Empleado empleado = null;
+	    String sql = "SELECT * FROM EMPLEADO WHERE id = ?";
+	    try (Connection con = ConexionBD.getConnection();
+	         PreparedStatement st = con.prepareStatement(sql)) {
+	        st.setInt(1, id);
+	        try (ResultSet rs = st.executeQuery()) {
+	            if (rs.next()) {
+	                empleado = new Empleado();
+	                empleado.setId(rs.getInt("id"));
+	                empleado.setNombre(rs.getString("nombre"));
+	                empleado.setEmail(rs.getString("email"));
+	                empleado.setDepartamento(rs.getString("departamento"));
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("No se pudo obtener empleado por ID");
+	        e.printStackTrace();
+	    }
+	    return empleado;
+	}
 
 	// UPDATE
 	public void actualizarEmpleados(Empleado empleado) throws SQLException {

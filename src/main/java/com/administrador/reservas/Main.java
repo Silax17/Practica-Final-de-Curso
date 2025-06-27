@@ -302,7 +302,7 @@ public class Main {
 
 			System.out.println("Email del Empleado: ");
 			String email = Strscan.nextLine();
-			;
+			
 
 			System.out.println("Departamento del Empleado: ");
 			String departamento = Strscan.nextLine();
@@ -443,6 +443,7 @@ public class Main {
 			Intscan.nextLine();
 
 			reservaDAO.eliminarReserva(id);
+			System.out.println("Reserva eliminada");
 
 		} catch (SQLException e) {
 			System.out.println("Error al eliminar la reserva: " + e.getMessage());

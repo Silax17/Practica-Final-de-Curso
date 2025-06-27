@@ -169,7 +169,7 @@ public class Main {
 		try {
 			System.out.println("Nombre de la Sala: ");
 			String nombre = Strscan.nextLine();
-			Intscan.nextLine();
+			
 
 			System.out.println("Capacidad de la Sala: ");
 			int capacidad = Intscan.nextInt();
@@ -177,7 +177,7 @@ public class Main {
 
 			System.out.println("Recursos Disponibles en la Sala: ");
 			String rec_disp = Strscan.nextLine();
-			Intscan.nextLine();
+			
 
 			Sala sala = new Sala(0, nombre, capacidad, rec_disp);
 			salaDAO.agregarSala(sala);
@@ -210,7 +210,7 @@ public class Main {
 
 			System.out.println("Nombre que desea: ");
 			String nombre = Strscan.nextLine();
-			Intscan.nextLine();
+			
 
 			System.out.println("Capacidad que desea: ");
 			int capacidad = Intscan.nextInt();
@@ -218,7 +218,7 @@ public class Main {
 
 			System.out.println("Recursos que desea: ");
 			String recursos = Strscan.nextLine();
-			Intscan.nextLine();
+			
 
 			System.out.println("Se va actualizar la sala...");
 
@@ -267,7 +267,7 @@ public class Main {
 				System.out.println("Volviendo al menu...");
 				return;
 			}
-			Intscan.nextLine();
+			
 			System.out.println("Departamento del Empleado: ");
 			String depart = Strscan.nextLine();
 
@@ -303,15 +303,15 @@ public class Main {
 
 			System.out.println("Nombre del Empleado: ");
 			String nombre = Strscan.nextLine();
-			Intscan.nextLine();
+			
 
 			System.out.println("Email del Empleado: ");
 			String email = Strscan.nextLine();
-			Intscan.nextLine();
+			;
 
 			System.out.println("Departamento del Empleado: ");
 			String departamento = Strscan.nextLine();
-			Intscan.nextLine();
+			
 
 			System.out.println("Se va actualizar la sala...");
 
